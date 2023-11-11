@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="vue.min.js"></script>
+
+    <title>ToDo</title>
+</head>
+
+<body>
+    <div class="container mx-auto text-center">
+        <div class="row mt-5">
+            <h1>New Todo:</h1>
+        </div>
+        <hr />
+        <div class="row form-inline">
+            <form onsubmit="todoOnSubmit(event)" autocomplete="off">
+                <div class="row">
+                    <input class="col-6" type="text" id="txtName" />
+                    <input class="col-2" type="time" id="timeStart" />
+                    <input class="col-2" type="number" id="numDuration" value="1" min="1" max="10" onkeydown="return false;" />
+                    <button type="submit" class=" btn btn-success col-2" id="btnAdd">Add</button>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="row mt-5">
+            <h1>All ToDos:</h1>
+        </div>
+        <hr />
+        <div class="row">
+            <table id="todos" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Text</th>
+                        <th scope="col">Start Time</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="todo in todos">
+                        <th scope="row">{{todo.index}}</th>
+                        <td>{{todo.text}}</td>
+                        <td>{{todo.startTime}}</td>
+                        <td>{{todo.duration}}</td>
+                        <td><a v-on:click="removeTodo(todo)" class="btn btn-danger btn-sm text-white">X</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <script src="methods.js"></script>
+    <script>
+        var model = new Vue({
+            el: '#todos',
+            data: {
+                todos: []
+            }
+        });
+
+        loadTodos();
+        // console.log(model.todos);
+        updateTodo('tgeter', 'bite me');
+    </script>
+
+</body>
+
+</html>
